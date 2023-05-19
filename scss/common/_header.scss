@@ -51,7 +51,7 @@ header {
 */
 
 //미디어 쿼리 (반응형)
-@media screen and (max-width: 999px) {
+@media screen and (max-width: $tablet) {
 	header {
 		height: 100px;
 		padding: 10px 10%;
