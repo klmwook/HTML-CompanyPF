@@ -34,4 +34,45 @@ header {
 			}
 		}
 	}
+
+	.btnCall {
+		display: none;
+	}
+}
+
+/*
+	반응형 구현 순서
+	1. 웹 버전의 scss 구문을 모바일 미디어 쿼리 안쪽에 붙혀넣기
+	2. 고칠 필요가 없는 구문은 소거법으로 지워나감
+	3. 모바일 구문에서 꼭 수정해야 되는 것들
+		 - 넓이 값이 고정 px인 요소는 가로 폭이 100%가 되도록 퍼센트로 변환
+		 - 높이 값은 고정 px이어도 상관없음
+		 - 가능하다면 세로 관련 높이값과 여백을 줄일 수 있으면 줄이는 것을 추천
+*/
+
+//미디어 쿼리 (반응형)
+@media screen and (max-width: 999px) {
+	header {
+		height: 100px;
+		padding: 10px 10%;
+
+		h1 {
+			position: relative;
+			top: -2px;
+
+			a {
+				font: bold 20px/1 'arial';
+			}
+		}
+
+		ul {
+			display: none;
+		}
+
+		.btnCall {
+			display: block;
+			color: #444;
+			font-size: 20px;
+		}
+	}
 }
