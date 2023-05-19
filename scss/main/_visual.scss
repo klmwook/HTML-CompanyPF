@@ -22,7 +22,7 @@
 
 		h1 {
 			font-weight: normal;
-			font-size: 7vw;
+			font-size: 8vw;
 			line-height: 1;
 			color: #fff;
 			margin-bottom: 20px;
@@ -39,10 +39,31 @@
 			display: inline-block;
 			width: 300px;
 			height: 30px;
-			font: 12px/30px 'arial';
+			font: 11px/30px 'arial';
 			color: #bbb;
 			border: 1px solid #bbb;
 			text-align: center;
+		}
+	}
+}
+
+@media screen and (max-width: 999px) {
+	#visual {
+		height: calc(100vh - 100px);
+
+		.txt {
+			h1 {
+				font-size: 12vw;
+			}
+
+			p {
+				width: 100%;
+				margin-bottom: 30px;
+			}
+
+			a {
+				width: 100%;
+			}
 		}
 	}
 }
