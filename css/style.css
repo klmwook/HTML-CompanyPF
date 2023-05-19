@@ -146,34 +146,56 @@ header .btnCall {
   color: #444;
   margin-bottom: 50px;
 }
-#vids #wrap {
+#vids .wrap {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
 }
-#vids #wrap article {
+#vids .wrap article {
   flex: 1;
 }
-#vids #wrap article .pic {
+#vids .wrap article .pic {
   width: 100%;
   height: 130px;
   margin-bottom: 15px;
 }
-#vids #wrap article .pic img {
+#vids .wrap article .pic img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-#vids #wrap article h2 {
+#vids .wrap article h2 {
   font: bold 16px/1 "arial";
   color: #555;
   margin-bottom: 10px;
 }
-#vids #wrap article p {
+#vids .wrap article p {
   font: 14px/1.3 "arial";
   color: #888;
+}
+
+@media screen and (max-width: 999px) {
+  #vids {
+    padding: 180px 10vw 150px;
+  }
+  #vids .wrap {
+    gap: 20px;
+  }
+  #vids .wrap article {
+    flex: none;
+    width: calc(50% - 10px);
+  }
+}
+@media screen and (max-width: 639px) {
+  #vids {
+    padding: 140px 10vw 120px;
+  }
+  #vids .wrap article {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
