@@ -50,6 +50,7 @@
 			justify-content: flex-start;
 			align-content: center;
 			position: relative;
+			min-height: 140px;
 
 			&:nth-of-type(odd) {
 				float: left;
