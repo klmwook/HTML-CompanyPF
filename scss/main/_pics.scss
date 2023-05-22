@@ -101,6 +101,47 @@
 			width: 30%;
 			height: 100%;
 			background: #333;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-content: center;
+
+			> * {
+				width: 100%;
+				text-align: center;
+			}
+
+			i {
+				font-size: 120px;
+				color: #eee;
+				margin-bottom: 30px;
+			}
+
+			h2 {
+				font: bold 18px/1 'arial';
+				color: #fff;
+				margin-bottom: 5px;
+			}
+
+			p {
+				font: 14px/1.2 'arial';
+				color: #ddd;
+				margin-bottom: 40px;
+			}
+
+			a {
+				width: 200px;
+				height: 30px;
+				border: 1px solid #aaa;
+				font: 12px/30px 'arial';
+				color: #aaa;
+			}
+		}
+
+		article > img {
+			width: 100%;
+			height: 100%;
+			object-fit: 100%;
 		}
 
 		.right {
@@ -128,6 +169,100 @@
 				width: 100%;
 				height: calc(50% - 10px);
 				background: #555;
+			}
+		}
+	}
+}
+
+/* 혼자 작업 해봤지만 살짝 모자람.*/
+// @media screen and (max-width: $tablet) {
+// 	#pics {
+// 		.wrap {
+// 			height: 100%;
+// 			flex-wrap: wrap;
+
+// 			.left {
+// 				width: 100%;
+// 				height: 100%;
+// 				padding: 20px 0;
+// 				margin-bottom: 20px;
+// 			}
+
+// 			.right {
+// 				width: 100%;
+// 				gap: 10px;
+
+// 				article:nth-of-type(1) {
+// 					height: 100%;
+// 				}
+
+// 				article:nth-of-type(2) {
+// 					height: 100%;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+
+// @media screen and (max-width: $mobile) {
+// 	#pics {
+// 		.wrap {
+// 			.right {
+// 				width: 100%;
+
+// 				article:nth-of-type(1) {
+// 					width: 100%;
+// 				}
+
+// 				article:nth-of-type(2) {
+// 					width: 100%;
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+
+@media screen and (max-width: $tablet) {
+	#pics {
+		padding: 150px 10vw 100px;
+
+		.wrap {
+			/* 고정되어 있는 높이값을 다시 풀어줄 때 사용 */
+			height: auto;
+			flex-wrap: wrap;
+
+			.left {
+				width: 100%;
+				height: 350px;
+				margin-bottom: 20px;
+
+				i {
+					font-size: 80px;
+				}
+			}
+
+			.right {
+				width: 100%;
+				height: 600px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: $mobile) {
+	#pics {
+		padding: 120px 10vw 80px;
+
+		.wrap {
+			.right {
+				height: auto;
+
+				article:nth-of-type(1),
+				article:nth-of-type(2),
+				article:nth-of-type(3) {
+					width: 100%;
+					height: 200px;
+				}
 			}
 		}
 	}
