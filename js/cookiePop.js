@@ -13,5 +13,40 @@ const pop = document.querySelector('#pop');
 const ck = pop.querySelector('#ck');
 const btnClose = pop.querySelector('.close');
 
-const txt = 'hello world';
-console.log(txt.indexOf('world'));
+const cookieData = document.cookie;
+
+//브라우저 로딩 시 쿠키유무에 따라 팝업 보임, 숨김 처리
+if (cookieData.indexOf('today=done') < 0) {
+	//쿠키가 없을 때 실행할 구문
+	pop.style.display = 'block';
+} else {
+	//쿠키가 있을 때 실행할 구문
+	pop.style.display = 'none';
+}
+
+btnShow.addEventListener('click', (e) => {
+	e.preventDefault();
+	console.log(document.cookie);
+});
+
+btnDel.addEventListener('click', (e) => {
+	e.preventDefault();
+	setCookie('today', 'done', -1);
+	alert('쿠키 삭제 완료');
+});
+
+//팝업 닫기 이벤트
+btnClose.addEventListener('click', (e) => {
+	e.preventDefault();
+	//체크박스에 체크가 되어있으면 쿠키 생성, 그렇지 않으면 해당 구문 무시
+	if (ck.checked) setCookie('today', 'done', 1);
+	pop.style.display = 'none';
+});
+
+function setCookie(name, value, expires) {
+	let today = new Date();
+	let duedate = today.getDate() + expires;
+	today.setDate(duedate);
+	const result = today.toGMTString();
+	document.cookie = `${name}=${value}; path=/; expires=${result}`;
+}
