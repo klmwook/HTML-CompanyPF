@@ -8,31 +8,30 @@
 	border: 1px solid #777;
 	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 	display: none;
-}
+	.content {
+		width: 100%;
+		height: 160px;
+		padding: 20px;
+	}
 
-.content {
-	width: 100%;
-	height: 160px;
-	padding: 20px;
-}
+	.bottom {
+		width: 100%;
+		height: 40px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		padding: 0 20px;
 
-.bottom {
-	width: 100%;
-	height: 40px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	padding: 0 20px;
-
-	.wrap {
-		label {
-			font: 12px/1 '돋움';
-			color: #555;
-			margin-left: 2px;
-		}
-		.close {
-			font: bold 14px/1 'arial';
-			color: #555;
+		.wrap {
+			label {
+				font: 12px/1 '돋움';
+				color: #555;
+				margin-left: 2px;
+			}
+			.close {
+				font: bold 14px/1 'arial';
+				color: #555;
+			}
 		}
 	}
 }

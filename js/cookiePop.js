@@ -7,22 +7,17 @@
 //전체 문자열에서 indexOf 특정 문자열을 찾지 못하면 -1을 반환
 //indexOf를 쓰는 이유는 -1을 통해서 전체 문자열에 특정 문자값이 있는지 없는지를 판단
 
-const btnShow = document.querySelector('header h1');
-const btnDel = document.querySelectorAll('header #gnb li')[0];
+const btnShow = document.querySelectorAll('header .sns li')[0];
+const btnDel = document.querySelectorAll('header .sns li')[1];
 const pop = document.querySelector('#pop');
 const ck = pop.querySelector('#ck');
 const btnClose = pop.querySelector('.close');
 
 const cookieData = document.cookie;
-
 //브라우저 로딩 시 쿠키유무에 따라 팝업 보임, 숨김 처리
-if (cookieData.indexOf('today=done') < 0) {
-	//쿠키가 없을 때 실행할 구문
-	pop.style.display = 'block';
-} else {
-	//쿠키가 있을 때 실행할 구문
-	pop.style.display = 'none';
-}
+//쿠키가 없을 때 실행할 구문
+//쿠키가 있을 때 실행할 구문
+cookieData.indexOf('today=done') < 0 ? (pop.style.display = 'block') : (pop.style.display = 'none');
 
 btnShow.addEventListener('click', (e) => {
 	e.preventDefault();
