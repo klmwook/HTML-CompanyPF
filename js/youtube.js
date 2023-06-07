@@ -8,37 +8,66 @@
 //배열.join('구분자') : 배열값을 구분자로 이어 붙여서 하나의 문자열로 반환
 
 const wrap = document.querySelector('.youtube .wrap');
-const key = 'AIzaSyDOsDRuQ_v0ISUQEy6mZdnCfcf3VKIG5uE';
-const list = 'PLGrvPC1Wr19hfiUx9COmzcnOQLVEihTor';
-const num = 10;
-const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list}&key=${key}&maxResults=${num}`;
 
-fetch(url)
-	.then((data) => data.json())
-	.then((json) => {
-		console.log(json.items);
-		let tags = '';
+//이벤트 위임 (Event Delegate)
+//현재 없는 요소에 이벤트를 전달하기 위해서 항상 있는 상위 부모요소에 이벤트를 위임 (이벤트 버블링 활용한 개념)
 
-		json.items.forEach((item) => {
-			let tit = item.snippet.title;
-			let desc = item.snippet.description;
-			let date = item.snippet.publishedAt;
-			console.log(date);
-			console.log(date.split('T')[0].split('-').join('.'));
+//e.target vs e.currentTarget
+//e.currentTarget : 현재 이벤트 구문상에 선택자로 연결되어 있는 요소를 지칭
+//e.target : 화면상에서 이벤트가 발생한 대상을 지칭
 
-			tags += `
+wrap.addEventListener('click', (e) => {
+	//console.log('e.currentTarget' + e.currentTarget);
+	//console.log('e.Target' + e.target);
+	if (e.target.nodeName !== 'IMG') return;
+	console.log(e.target.getAttribute('alt'));
+});
+
+fetchData();
+
+//데이터 fetching 함수
+async function fetchData() {
+	const key = 'AIzaSyDOsDRuQ_v0ISUQEy6mZdnCfcf3VKIG5uE';
+	const list = 'PLGrvPC1Wr19hfiUx9COmzcnOQLVEihTor';
+	const num = 10;
+	const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${list}&key=${key}&maxResults=${num}`;
+
+	const data = await fetch(url);
+	const json = await data.json();
+	console.log(json.items);
+
+	createList(json.items);
+}
+
+//동적으로 목록 생성함수
+function createList(arr) {
+	let tags = '';
+
+	arr.forEach((item) => {
+		let tit = item.snippet.title;
+		let desc = item.snippet.description;
+		let date = item.snippet.publishedAt;
+
+		tags += `
       <article>
         <h2>${tit.length > 50 ? tit.substr(0, 50) + '...' : tit}</h2>
         <div class='txt'>
           <p>${desc.length > 200 ? desc.substr(0, 200) + '...' : desc}</p>
-          <span>${item.snippet.publishedAt}</span>
+          <span>${date.split('T')[0].split('-').join('.')}</span>
         </div>
         <div class='pic'>
-          <img src=${item.snippet.thumbnails.standard.url} />
+          <img src=${item.snippet.thumbnails.standard.url} alt=${item.snippet.resourceId.videoId}/>
         </div>
       </article>
       `;
-		});
-
-		wrap.innerHTML = tags;
 	});
+
+	wrap.innerHTML = tags;
+
+	//Then구문 안쪽에서 동기적으로 돔요소가 동적으로 생성된 이후에만 해당 요소에 접근 가능
+	// const pic = document.querySelectorAll('.pic')[0];
+
+	// pic.addEventListener('click', () => {
+	// 	console.log('clicked');
+	// });
+}
