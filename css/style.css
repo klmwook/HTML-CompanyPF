@@ -713,7 +713,6 @@ footer .lower p:last-child {
 }
 .gallery {
   width: 100%;
-  padding: 50px;
   overflow: hidden;
 }
 .gallery .wrap::after {
@@ -740,6 +739,17 @@ footer .lower p:last-child {
   color: #777;
   margin-top: 10px;
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 999px) {
+  .gallery .wrap li {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 639px) {
+  .gallery .wrap li {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
