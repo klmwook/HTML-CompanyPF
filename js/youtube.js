@@ -16,14 +16,12 @@ const wrap = document.querySelector('.youtube .wrap');
 //e.currentTarget : 현재 이벤트 구문상에 선택자로 연결되어 있는 요소를 지칭
 //e.target : 화면상에서 이벤트가 발생한 대상을 지칭
 
-wrap.addEventListener('click', (e) => {
-	//console.log('e.currentTarget' + e.currentTarget);
-	//console.log('e.Target' + e.target);
-	if (e.target.nodeName !== 'IMG') return;
-	console.log(e.target.getAttribute('alt'));
-});
-
 fetchData();
+
+document.body.addEventListener('click', (e) => {
+	if (e.target.className === 'thumb') createPop();
+	if (e.target.className === 'close') removePop();
+});
 
 //데이터 fetching 함수
 async function fetchData() {
@@ -56,7 +54,9 @@ function createList(arr) {
           <span>${date.split('T')[0].split('-').join('.')}</span>
         </div>
         <div class='pic'>
-          <img src=${item.snippet.thumbnails.standard.url} alt=${item.snippet.resourceId.videoId}/>
+          <img class='thumb' src=${item.snippet.thumbnails.standard.url} alt=${
+			item.snippet.resourceId.videoId
+		}/>
         </div>
       </article>
       `;
@@ -70,4 +70,30 @@ function createList(arr) {
 	// pic.addEventListener('click', () => {
 	// 	console.log('clicked');
 	// });
+}
+
+//동적으로 팝업 생성함수
+function createPop() {
+	const tags = `	
+		<div class='con'></div>
+		<span class='close'>close</span>	
+	`;
+
+	const pop = document.createElement('aside');
+	pop.className = 'pop';
+	pop.innerHTML = tags;
+	document.body.append(pop);
+	//특정 코드를 강제로 동기화시키고 싶을 때는 setTimeout에 delay를 0초로 지정해서 코드를 패키징 (강제로 web api에 넘어갔다가 다시 콜스택 제일 마지막에 등록)
+	setTimeout(() => document.querySelector('.pop').classList.add('on'), 0);
+	document.body.style.overflow = 'hidden';
+}
+
+//팝업 제거 함수
+function removePop() {
+	document.querySelector('.pop').classList.remove('on');
+	setTimeout(() => {
+		document.querySelector('.pop').remove();
+	}, 1000);
+
+	document.body.style.overflow = 'auto';
 }
