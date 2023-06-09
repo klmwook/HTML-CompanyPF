@@ -1,7 +1,7 @@
 const wrap = document.querySelector('.gallery .wrap');
 const loading = document.querySelector('.gallery .loading');
 const api_key = '4b95b58f2acca136d03e1c6883048c6c';
-const num = 500;
+const num = 50;
 const myId = '198489363@N07';
 const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
 const method_interest = 'flickr.interestingness.getList'; //오늘의 인기있는 이미지
@@ -14,6 +14,7 @@ fetch(user_url)
 	.then((json) => {
 		console.log(json.photos.photo);
 		const items = json.photos.photo;
+		console.log();
 
 		let tags = '';
 
@@ -22,9 +23,14 @@ fetch(user_url)
         <li class='item'>
           <div>
             <a href='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg' target='_blank'>
-              <img src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg'/>
+              <img class='thumb' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg'/>
             </a>
             <p>${item.title === '' ? 'Have a Good day!!' : item.title}</p>
+
+						<article class='profile'>						
+							<img src='http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg' />	
+							<span>${item.owner}</span>
+						<article>
           </div>
         </li>
       `;
@@ -40,6 +46,12 @@ fetch(user_url)
 		let count = 0;
 
 		for (const el of imgs) {
+			//만약 이미지에 엑스박스가 뜨면 onerror이벤트로 잡아서 defalut 이미지로 대체
+			el.onerror = () => {
+				el.setAttribute('src', 'https://www.flickr.com/images/buddyicon.gif');
+			};
+
+			//디폴트로 변경된 이미지까지 포함해서 카운트 (무한루프에 빠지지 않음)
 			el.onload = () => {
 				count++;
 				console.log(count);
