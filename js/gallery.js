@@ -28,9 +28,9 @@ btnSearch.addEventListener('click', () => {
 btnInterest.addEventListener('click', () => fecthData(url_interest));
 btnMine.addEventListener('click', () => fecthData(url_user));
 
-//변수 아이디
+//사용자 아이디 클릭 시 해당 갤러리 확인 이벤트
 wrap.addEventListener('click', (e) => {
-	if (e.target.className == 'pic_owner') {
+	if (e.target.className == 'userid') {
 		const owner_Id = e.target.innerText; //owner명
 		const url_owner = `${baseURL}${method_user}&user_id=${owner_Id}`;
 		fecthData(url_owner);
@@ -62,7 +62,7 @@ function createList(arr) {
 
 						<article class='profile'>						
 							<img src='http://farm${item.farm}.staticflickr.com/${item.server}/buddyicons/${item.owner}.jpg' />	
-							<span class='pic_owner'>${item.owner}</span>
+							<span class='userid'>${item.owner}</span>
 						</article>
           </div>
         </li>
