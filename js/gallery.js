@@ -2,40 +2,47 @@ const wrap = document.querySelector('.gallery .wrap');
 const loading = document.querySelector('.gallery .loading');
 const input = document.querySelector('.gallery #search');
 const btnSearch = document.querySelector('.gallery .btnSearch');
-
 const btnInterest = document.querySelector('.gallery .btnInterest');
 const btnMine = document.querySelector('.gallery .btnMine');
-
 const api_key = '4b95b58f2acca136d03e1c6883048c6c';
 const num = 50;
 const myId = '198489363@N07';
-const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
-const method_interest = 'flickr.interestingness.getList'; //오늘의 인기있는 이미지
-const method_user = 'flickr.people.getPhotos'; //사용자 유저 이미지
-const method_search = 'flickr.photos.search';
-const url_interest = `${baseURL}${method_interest}`;
-const url_user = `${baseURL}${method_user}&user_id=${myId}`;
 
-fecthData(url_interest);
+fecthData(setURL('interest'));
+btnSearch.addEventListener('click', getSearch);
 
-btnSearch.addEventListener('click', () => {
-	const value = input.value.trim();
-	if (value === '') return alert('검색어를 입력 해 주세요.');
-	const url_search = `${baseURL}${method_search}&tags=${value}`;
-	fecthData(url_search);
-});
+//키보드 이벤트 영역
+//input.addEventListener('keypress', (e) => {
+//	if (e.keyCode == 13 || e.code === 'Enter') getSearch();
+//});
+input.addEventListener('keypress', (e) => e.code === 'Enter' && getSearch());
 
-btnInterest.addEventListener('click', () => fecthData(url_interest));
-btnMine.addEventListener('click', () => fecthData(url_user));
-
+btnInterest.addEventListener('click', () => fecthData(setURL('interest')));
+btnMine.addEventListener('click', () => fecthData(setURL('user', myId)));
 //사용자 아이디 클릭 시 해당 갤러리 확인 이벤트
-wrap.addEventListener('click', (e) => {
-	if (e.target.className == 'userid') {
-		const owner_Id = e.target.innerText; //owner명
-		const url_owner = `${baseURL}${method_user}&user_id=${owner_Id}`;
-		fecthData(url_owner);
-	}
+document.body.addEventListener('click', (e) => {
+	if (e.target.className == 'userid') fecthData(setURL('user', e.target.innerText));
+	if (e.target.className == 'thumb') createPop(e.target.getAttribute('alt'));
+	if (e.target.className == 'close') removePop();
 });
+
+function setURL(type, opt) {
+	const baseURL = `https://www.flickr.com/services/rest/?format=json&nojsoncallback=1&api_key=${api_key}&per_page=${num}&method=`;
+	const method_interest = 'flickr.interestingness.getList'; //오늘의 인기있는 이미지
+	const method_user = 'flickr.people.getPhotos'; //사용자 유저 이미지
+	const method_search = 'flickr.photos.search';
+
+	if (type === 'interest') return `${baseURL}${method_interest}`;
+	if (type === 'search') return `${baseURL}${method_search}&tags=${opt}`;
+	if (type === 'user') return `${baseURL}${method_search}&user_id=${opt}`;
+}
+
+function getSearch() {
+	const value = input.value.trim();
+	input.value = '';
+	if (value === '') return alert('검색어를 입력 해 주세요.');
+	fecthData(setURL('search', value));
+}
 
 async function fecthData(url) {
 	loading.classList.remove('off');
@@ -44,6 +51,11 @@ async function fecthData(url) {
 	const res = await fetch(url);
 	const json = await res.json();
 	const items = json.photos.photo;
+	if (items.length === 0) {
+		wrap.classList.add('on');
+		loading.classList.add('off');
+		return alert('해당 검색어의 결과이미지가 없습니다.');
+	}
 	createList(items);
 	setLoading();
 }
@@ -54,10 +66,8 @@ function createList(arr) {
 	arr.forEach((item) => {
 		tags += `
         <li class='item'>
-          <div>
-            <a href='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg' target='_blank'>
-              <img class='thumb' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg'/>
-            </a>
+          <div>            
+						<img class='thumb' src='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_m.jpg' alt='https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}_b.jpg'/>
             <p>${item.title === '' ? 'Have a Good day!!' : item.title}</p>
 
 						<article class='profile'>						
@@ -109,4 +119,31 @@ function isoLayout() {
 
 	wrap.classList.add('on');
 	loading.classList.add('off');
+}
+
+//레이어 팝업 띄우기
+function createPop(url) {
+	document.body.style.overflow = 'hidden';
+	const aside = document.createElement('aside');
+	aside.className = 'pop';
+	const tags = `
+		<div class='con'>
+			<img src='${url}' />
+		</div>
+		<span class='close'>close</span>
+	`;
+
+	aside.innerHTML = tags;
+	document.body.append(aside);
+
+	setTimeout(() => document.querySelector('aside').classList.add('on'), 0);
+}
+
+function removePop() {
+	document.body.style.overflow = 'auto';
+	const pop = document.querySelector('.pop');
+	pop.classList.remove('on');
+	setTimeout(() => {
+		pop.remove();
+	}, 0);
 }
