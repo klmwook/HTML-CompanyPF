@@ -90,6 +90,9 @@ function isEmail(name, len) {
 				errMsg.innerText = '@ 뒤쪽의 서비스명이 올바른지 확인하세요.';
 				email.closest('td').append(errMsg);
 				return false;
+			} else {
+				resetErr(email);
+				return true;
 			}
 		}
 	}
@@ -101,8 +104,6 @@ function isEmail(name, len) {
 		email.closest('td').append(errMsg);
 		return false;
 	}
-
-	return true;
 }
 
 //체크요소 형식 입력받아 인증
