@@ -5,7 +5,7 @@ btnSubmit.addEventListener('click', (e) => {
 	if (!isTxt('userid', 5)) e.preventDefault();
 	if (!isTxt('comments', 10)) e.preventDefault();
 	if (!isPwd('pwd1', 'pwd2', 4)) e.preventDefault();
-	//if (!isEmail('email', 6)) e.preventDefault();
+	if (!isEmail('email', 6)) e.preventDefault();
 	if (!isCheck('gender')) e.preventDefault();
 	if (!isCheck('hobby')) e.preventDefault();
 	if (!isSelect('edu')) e.preventDefault();
@@ -53,13 +53,56 @@ function isPwd(pwd1, pwd2, len) {
 
 //이메일 형식 입력받아 인증
 function isEmail(name, len) {
-	const email = form.querySelector(`[name=${name}]`).value;
-	if (email.indexOf('@') < 0 || email.length < len) {
-		alert('이메일주소에 @를 포함시키고 6글자 이상 입력하세요.');
-		return false;
-	} else {
-		return true;
+	// const spc = /[@]/;
+	// const emailEl = form.querySelector(`[name=${name}]`);
+	// const email = form.querySelector(`[name=${name}]`).value;
+	// if (email.indexOf('@') < 0 || email.length < len || !spc.test(email)) {
+	// 	resetErr(emailEl);
+	// 	const errMsg = document.createElement('p');
+	// 	errMsg.innerText = `이메일은 ${len}글자 이상 @를 포함하세요.`;
+	// 	emailEl.closest('td').append(errMsg);
+	// 	return false;
+	// } else {
+	// 	resetErr(emailEl);
+	// 	return true;
+	// }
+
+	const email = form.querySelector(`[name=${name}]`);
+	const email_val = email.value;
+
+	//순서 1 - 이메일 주소에 @ 있는지 유무 판단
+	if (/@/.test(email_val)) {
+		const [forwardTxt, backwoadTxt] = email_val.split('@');
+
+		//순서 3 - @가 있다는 전제하에 @ 앞뒤로 문자값이 있는지 확인해서 없으면 에러 반환
+		if (!forwardTxt || !backwoadTxt) {
+			resetErr(email);
+			const errMsg = document.createElement('p');
+			errMsg.innerText = '@앞쪽이나 뒤쪽에 문자값이 없습니다.';
+			email.closest('td').append(errMsg);
+			return false;
+			//순서 4 - 뒤쪽 문자에 .이 없으면 에러 반환
+		} else {
+			//정규표현식 안쪽에 예약어로 인지되는 문자앞에 역슬러쉬를 붙여서 예약어에서 제외시켜서 문자로 연산
+			if (!/\./.test(backwoadTxt)) {
+				resetErr(email);
+				const errMsg = document.createElement('p');
+				errMsg.innerText = '@ 뒤쪽의 서비스명이 올바른지 확인하세요.';
+				email.closest('td').append(errMsg);
+				return false;
+			}
+		}
 	}
+	//순서 2 - @ 없으면 에러 문구 출력하고 false 반환
+	else {
+		resetErr(email);
+		const errMsg = document.createElement('p');
+		errMsg.innerHTML = '@를 포함하세요';
+		email.closest('td').append(errMsg);
+		return false;
+	}
+
+	return true;
 }
 
 //체크요소 형식 입력받아 인증
