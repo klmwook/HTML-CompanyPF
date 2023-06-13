@@ -8,12 +8,15 @@
 const form = document.querySelector('#member');
 const btnSubmit = form.querySelector('input[type=submit]');
 
+//제출 시 밸리데이션
 btnSubmit.addEventListener('click', (e) => {
-	if (!isTxt('userid', 5)) e.preventDefault();
-	if (!isPwd('pwd1', 'pwd2', 5)) e.preventDefault();
-	if (!isEmail('email', 6)) e.preventDefault();
-	if (!isCheck()) e.preventDefault();
-	if (!isSelect()) e.preventDefault();
+	if (!isTxt('userid', 5)) e.preventDefault(); //아이디
+	if (!isTxt('comments', 10)) e.preventDefault(); //comments
+	if (!isPwd('pwd1', 'pwd2', 5)) e.preventDefault(); //비밀번호 / 비밀번호 확인
+	if (!isEmail('email', 6)) e.preventDefault(); //이메일
+	if (!isCheck('gender')) e.preventDefault(); //성별
+	if (!isCheck('hobby')) e.preventDefault(); //취미
+	if (!isSelect('edu')) e.preventDefault(); //
 });
 
 //텍스트항목 입력 받아 인증
@@ -44,16 +47,10 @@ function isPwd(name, name2, len) {
 //이메일 형식 입력 받아 인증 함수
 //조건 - 입력한 문자가 6글자 이상이고, @포함
 function isEmail(name, len) {
-	const input = form.querySelector(`input[name=${name}]`);
-	const Email = input.value.trim();
+	const Email = form.querySelector(`[name=${name}]`).value.trim();
 
-	if (Email.length < len) {
-		alert(`입력한 이메일 항목을 ${len}글자 이상 입력 하세요.`);
-		return false;
-	}
-
-	if (Email.indexOf('@') === -1) {
-		alert(`@를 추가하여 이메일을 입력 해 주세요.`);
+	if (Email.indexOf('@') < 0 || Email.length < len) {
+		alert(`입력한 이메일 항목에 @을 추가해주시고 ${len}글자 이상 입력 하세요.`);
 		return false;
 	}
 
@@ -62,10 +59,25 @@ function isEmail(name, len) {
 
 //체크요소 형식 입력받아 인증
 function isCheck(name) {
-	return true;
+	const inputs = document.querySelectorAll(`[name=${name}]`);
+	let isChecked = false;
+	//현재 반복도는 체크폼요소에 하나라도 체크되어 있는게 있다면
+	//지역변수 isChecked를 true로 변경
+	for (const input of inputs) input.checked && (isChecked = true);
+	if (!isChecked) {
+		alert('해당 선택사항을 하나 이상 체크하세요.');
+		return false;
+	} else return true;
 }
 
 //select요소 입력 받아 인증
 function isSelect(name) {
-	return true;
+	const input = form.querySelector(`[name=${name}]`);
+	const selected_index = input.options.selectedIndex;
+	const value = input.options[selected_index].value;
+
+	if (value === '') {
+		alert('해당 요소중에 하나를 선택 해 주세요.');
+		return false;
+	} else return true;
 }
