@@ -8,6 +8,9 @@
   <title>INNOVATION</title>
   <script src="https://kit.fontawesome.com/4f0445228d.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=203b54112335d968f2f2899fa015ff2e"></script>
+  <script defer src="./js/location.js"></script>
+
 </head>
 
 <body>
@@ -44,10 +47,17 @@
 
   </header>
 
-  <section class="content">
+  <section class="content location">
     <figure class="subVisual"></figure>
     <div class="inner">
       <h1>Location</h1>
+
+      <div id="map"></div>
+      <ul class="branch">
+        <li>코엑스</li>
+        <li>광화문</li>
+        <li>카카오본사</li>
+      </ul>
     </div>
   </section>
 
