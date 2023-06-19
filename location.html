@@ -5,9 +5,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INNOVATION</title>
-  <script src="https://kit.fontawesome.com/4f0445228d.js" crossorigin="anonymous"></script>
+  <title>Document</title>
+  <script src="https://kit.fontawesome.com/1d8113f26b.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css">
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=203b54112335d968f2f2899fa015ff2e"></script>
+  <script defer src="js/location.js"></script>
 </head>
 
 <body>
@@ -26,28 +28,28 @@
     </ul>
 
     <ul class="sns">
-      <li>
-        <a href="javascript:void(0)"><i class="fa-brands fa-facebook"></i></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"><i class="fa-brands fa-twitter"></i></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"><i class="fa-solid fa-envelope"></i></a>
-      </li>
+      <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
+      <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+      <li><a href="#"><i class="fa-solid fa-envelope"></i></a></li>
     </ul>
 
-    <!-- 모바일 전용 버튼 -->
-    <a href="javascript:void(0)" class="btnCall">
+    <a href="#" class="btnCall">
       <i class="fa-solid fa-bars"></i>
     </a>
-
   </header>
 
-  <section class="content">
+  <section class="content location">
     <figure class="subVisual"></figure>
     <div class="inner">
       <h1>Location</h1>
+
+      <div id="map"></div>
+      <ul class="branch">
+        <li class="on">코엑스</li>
+        <li>광화문</li>
+        <li>카카오본사</li>
+      </ul>
+      <span class="btnToggle">Traffic ON</span>
     </div>
   </section>
 
@@ -56,15 +58,16 @@
       <h1>DCODELAB</h1>
 
       <ul>
-        <li><a href="javascript:void(0)">Policy</a></li>
-        <li><a href="javascript:void(0)">Terms</a></li>
-        <li><a href="javascript:void(0)">Customer</a></li>
-        <li><a href="javascript:void(0)">Contact us</a></li>
+        <li><a href="#">Policy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Customer</a></li>
+        <li><a href="#">Contact us</a></li>
       </ul>
     </div>
+
     <div class="lower">
-      <address>address: Lorem ipsum dolor sit amet consectetur adipisicing elit.</address>
-      <p>TEL : +82-32-1234-6789 FAX: +82-32-1234-5678</p>
+      <address>address: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus, esse.</address>
+      <p>TEL: +82-32-1234-5678 FAX: +82-32-1234-5678</p>
       <p>Copyright &copy; 2023 DCODELAB ALL RIGHTS Reserved.</p>
     </div>
   </footer>
