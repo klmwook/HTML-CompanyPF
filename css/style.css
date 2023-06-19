@@ -259,6 +259,22 @@ footer .lower p:last-child {
   transform: scale(0.5);
   filter: brightness(0%) saturate(0%);
 }
+#visual .btnPlay {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 5;
+}
+#visual .btnPause {
+  position: absolute;
+  bottom: 50px;
+  left: 100px;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 5;
+}
 
 @media screen and (max-width: 999px) {
   #visual {
