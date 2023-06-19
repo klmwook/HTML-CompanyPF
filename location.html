@@ -9,7 +9,29 @@
   <script src="https://kit.fontawesome.com/1d8113f26b.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/style.css">
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=203b54112335d968f2f2899fa015ff2e"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script defer src="js/location.js"></script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init('DuVGSRIP4uXIG234N');
+    })();
+  </script>
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById('contact-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        // generate a five digit number for the contact_number variable
+        this.contact_number.value = Math.random() * 100000 | 0;
+        // service ID , template ID ,
+        emailjs.sendForm('service_Portfolio', 'template_zdeoxxk', this)
+          .then(function () {
+            console.log('SUCCESS!');
+          }, function (error) {
+            console.log('FAILED...', error);
+          });
+      });
+    }
+  </script>
 </head>
 
 <body>
@@ -41,15 +63,38 @@
   <section class="content location">
     <figure class="subVisual"></figure>
     <div class="inner">
-      <h1>Location</h1>
+      <article>
+        <h1>Location</h1>
 
-      <div id="map"></div>
-      <ul class="branch">
-        <li class="on">코엑스</li>
-        <li>광화문</li>
-        <li>카카오본사</li>
-      </ul>
-      <span class="btnToggle">Traffic ON</span>
+        <div id="map"></div>
+        <ul class="branch">
+          <li class="on">코엑스</li>
+          <li>광화문</li>
+          <li>카카오본사</li>
+        </ul>
+        <span class="btnToggle">Traffic ON</span>
+      </article>
+
+      <article class="contact">
+        <form id="contact-form">
+          <!-- 내부적으로 고유 키 값이 넘어가는 폼 요소 (수정필요 없음)-->
+          <input type="hidden" name="contact_number">
+
+          <!-- 작성하는 사용자 이름 입력 받을 폼 요소 -->
+          <label>Name</label>
+          <input type="text" name="from_name">
+
+          <!-- 작성하는 사숑자의 이메일 주소를 입력 받을 폼 요소  -->
+          <label>Email</label>
+          <input type="email" name="reply_to">
+
+          <!-- 작성 내용을 입력 받을 폼 요소  -->
+          <label>Message</label>
+          <textarea name="message"></textarea>
+          <input type="submit" value="Send">
+        </form>
+      </article>
+
     </div>
   </section>
 
