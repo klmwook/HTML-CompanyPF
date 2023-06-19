@@ -8,7 +8,10 @@
   <title>INNOVATION</title>
   <script src="https://kit.fontawesome.com/4f0445228d.js" crossorigin="anonymous"></script>
   <script defer src="js/cookiePop.js"></script>
+  <script defer src="js/visual.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 </head>
 
 <body>
@@ -46,20 +49,18 @@
 
   </header>
 
-  <figure id="visual">
-    <video src="img/visual.mp4" autoplay muted loop></video>
-    <div class="txt">
-      <h1>
-        INNOVATION
-      </h1>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti doloremque dolorum eius saepe fugiat alias
-        vitae laborum eveniet officiis commodi!</p>
-
-      <a href="javascript:void(0)">VIEW OUR PORTFOLIO</a>
+  <figure id="visual" class="myScroll">
+    <div class="swiper-wrapper">
+      <article data-slide="1" class="swiper-slide"></article>
+      <article data-slide="2" class="swiper-slide">2</article>
+      <article data-slide="3" class="swiper-slide">3</article>
     </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </figure>
 
-  <section id="vids">
+  <section id="vids" class="myScroll">
     <h1>RECENT YOUTUBE</h1>
     <div class="wrap">
       <article>
@@ -130,7 +131,7 @@
   </section> -->
 
   <!-- 학원에서 같이 진행 -->
-  <section id="pics">
+  <section id="pics" class="myScroll">
     <h1>PLICKR GALLERY</h1>
     <div class="wrap">
       <div class="left">
@@ -153,13 +154,13 @@
     </div>
   </section>
 
-  <section id="banner">
+  <section id="banner" class="myScroll">
     <h1>Lorem ipsum dolor sit amet.</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, obcaecati! Esse harum vero commodi est labore
       adipisci reiciendis error inventore?</p>
   </section>
 
-  <section id="news">
+  <section id="news" class="myScroll">
     <h1>RECENT COMMENTS</h1>
 
     <ul>
@@ -204,6 +205,12 @@
     </div>
   </footer>
 
+  <ul id="scroll_navi">
+    <li class="on"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   <aside id="pop">
     <div class="content">
       <h1>Hello</h1>
