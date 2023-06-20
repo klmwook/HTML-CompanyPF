@@ -3,66 +3,89 @@
 	height: 100vh;
 	background: #111;
 	position: relative;
-	display: flex;
-	padding: 0px 10vw;
-	align-items: center;
+	overflow: hidden;
 
-	video {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		opacity: 0.3;
+	.swiper-wrapper {
+		article[data-slide='1'] {
+			background: hotpink;
+		}
+		article[data-slide='2'] {
+			background: aqua;
+		}
+		article[data-slide='3'] {
+			background: orange;
+		}
+		article[data-slide='4'] {
+			background: lightgreen;
+		}
+		article[data-slide='5'] {
+			background: orangered;
+		}
+		article[data-slide='6'] {
+			background: blueviolet;
+		}
+	}
+	.swiper-button-next {
+		top: auto;
+		bottom: 0px;
+		right: 50px;
+		transform: scale(0.5);
+		filter: brightness(0%) saturate(0%);
+	}
+	.swiper-button-prev {
+		top: auto;
+		bottom: 0px;
+		left: auto;
+		right: 100px;
+		transform: scale(0.5);
+		filter: brightness(0%) saturate(0%);
 	}
 
-	.txt {
-		position: relative;
+	.btnPlay {
+		position: absolute;
+		bottom: 50px;
+		left: 50px;
+		cursor: pointer;
+		font-size: 20px;
+		z-index: 5;
+		opacity: 0.5;
 
-		h1 {
-			font-weight: normal;
-			font-size: 8vw;
-			line-height: 1;
-			color: #fff;
-			margin-bottom: 20px;
+		&.on {
+			opacity: 1;
 		}
+	}
+	.btnPause {
+		position: absolute;
+		bottom: 50px;
+		left: 100px;
+		cursor: pointer;
+		font-size: 20px;
+		z-index: 5;
+		opacity: 0.5;
 
-		p {
-			width: 70%;
-			font: 20px/1.2 'arial';
-			color: #888;
-			margin-bottom: 80px;
-		}
-
-		a {
-			display: inline-block;
-			width: 300px;
-			height: 30px;
-			font: 11px/30px 'arial';
-			color: #bbb;
-			border: 1px solid #bbb;
-			text-align: center;
+		&.on {
+			opacity: 1;
 		}
 	}
 }
 
 @media screen and (max-width: $tablet) {
 	#visual {
-		height: calc(100vh - 100px);
+		height: calc(100vh);
 
-		.txt {
-			h1 {
-				font-size: 12vw;
-			}
-
-			p {
-				width: 100%;
-				margin-bottom: 30px;
-			}
-
-			a {
-				width: 100%;
+		.swiper-wrapper {
+			article {
+				.txt {
+					h1 {
+						font-size: 12vw;
+					}
+					p {
+						width: 100%;
+					}
+					a {
+						width: 100%;
+					}
+				}
 			}
 		}
 	}
